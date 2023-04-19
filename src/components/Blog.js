@@ -1,6 +1,6 @@
-import { useState } from "react"
+import { useState } from 'react'
 
-const Blog = ({blog, updateBlog, deleteBlog}) => {
+const Blog = ({ blog, updateBlog, deleteBlog }) => {
   const [visible, setVisible] = useState(false)
 
   const blogStyle = {
@@ -55,7 +55,7 @@ const Blog = ({blog, updateBlog, deleteBlog}) => {
       <div style={ showWhenBlogOwner() }>
         <button onClick={handleRemove}>remove</button>
       </div>
-    </div>  
+    </div>
   )
 }
 

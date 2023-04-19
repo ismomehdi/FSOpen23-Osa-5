@@ -8,15 +8,15 @@ import Togglable from './components/Togglable'
 
 const App = () => {
   const [blogs, setBlogs] = useState([])
-  const [username, setUsername] = useState('') 
-  const [password, setPassword] = useState('') 
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
   const [user, setUser] = useState(null)
   const [notificationMessage, setNotificationMessage] = useState(null)
 
   useEffect(() => {
     blogService.getAll().then(blogs =>
       setBlogs( blogs )
-    )  
+    )
   }, [])
 
   useEffect(() => {
@@ -38,7 +38,7 @@ const App = () => {
 
       window.localStorage.setItem(
         'loggedUser', JSON.stringify(user)
-      ) 
+      )
 
       blogService.setToken(user.token)
       setUser(user)
@@ -62,7 +62,7 @@ const App = () => {
       <h2>log in to application</h2>
       <div>
         username
-          <input
+        <input
           type="text"
           value={username}
           name="Username"
@@ -71,7 +71,7 @@ const App = () => {
       </div>
       <div>
         password
-          <input
+        <input
           type="password"
           value={password}
           name="Password"
@@ -79,7 +79,7 @@ const App = () => {
         />
       </div>
       <button type="submit">login</button>
-    </form>      
+    </form>
   )
 
   const renderBlogs = () => (
@@ -91,13 +91,13 @@ const App = () => {
       {blogs
         .sort((a, b) => b.likes - a.likes)
         .map(blog =>
-          <Blog 
-            key={blog.id} 
-            blog={blog} 
+          <Blog
+            key={blog.id}
+            blog={blog}
             updateBlog={updateBlog}
-            deleteBlog={deleteBlog}  
+            deleteBlog={deleteBlog}
           />
-      )}
+        )}
     </div>
   )
 
