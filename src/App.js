@@ -91,10 +91,27 @@ const App = () => {
       {blogs
         .sort((a, b) => b.likes - a.likes)
         .map(blog =>
-          <Blog key={blog.id} blog={blog} updateBlog={updateBlog} />
+          <Blog 
+            key={blog.id} 
+            blog={blog} 
+            updateBlog={updateBlog}
+            deleteBlog={deleteBlog}  
+          />
       )}
     </div>
   )
+
+  const deleteBlog = async (id) => {
+    try {
+      await blogService.remove(id)
+      setBlogs(blogs.filter(blog => blog.id !== id))
+    } catch (exception) {
+      setNotificationMessage(exception.message)
+      setTimeout(() => {
+        setNotificationMessage(null)
+      }, 5000)
+    }
+  }
 
   const updateBlog = async (blogObject) => {
     try {
