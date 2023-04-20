@@ -14,6 +14,8 @@ const Blog = ({ blog, updateBlog, deleteBlog }) => {
   const showWhenVisible = { display: visible ? '' : 'none' }
   const buttonLabel = visible ? 'hide' : 'view'
 
+  const blogOwner = blog.user ? blog.user.username : 'unknown'
+
   const toggleVisibility = () => {
     setVisible(!visible)
   }
@@ -36,7 +38,11 @@ const Blog = ({ blog, updateBlog, deleteBlog }) => {
     const loggedUserJSON = window.localStorage.getItem('loggedUser')
     const user = JSON.parse(loggedUserJSON)
 
-    if (blog.user.username === user.username) {
+    if (user === null) {
+      return { display: 'none' }
+    }
+
+    if (blogOwner === user.username) {
       return { display: '' }
     } else {
       return { display: 'none' }
@@ -50,7 +56,7 @@ const Blog = ({ blog, updateBlog, deleteBlog }) => {
       <div style={showWhenVisible}>
         {blog.url} <br />
         likes {blog.likes} <button onClick={handleLike}>like</button> <br />
-        {blog.user.username}
+        {blogOwner}
       </div>
       <div style={ showWhenBlogOwner() }>
         <button onClick={handleRemove}>remove</button>
