@@ -32,3 +32,16 @@ test('renders url, likes and user when view button is clicked', async () => {
   screen.getByText(likes)
   screen.getByText(username)
 })
+
+test('event handler is called twice if like button is clicked 2 times', async () => {
+  const mockHandler = jest.fn()
+
+  render(<Blog blog={blog} updateBlog={mockHandler} />)
+
+  const user = userEvent.setup()
+  const button = screen.getByText('like')
+  await user.click(button)
+  await user.click(button)
+
+  expect(mockHandler.mock.calls).toHaveLength(2)
+})
